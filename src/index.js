@@ -17,7 +17,9 @@ fastify.register((await import('@fastify/cors')).default, {
     }
 
     try {
-      if (origin === process.env.FRONTEND_URL) {
+      const allowedOrigin = process.env.FRONTEND_URL?.replace(/\/$/, '');
+      const incomingOrigin = origin.replace(/\/$/, '');
+      if (allowedOrigin === incomingOrigin) {
         cb(null, {
           origin: true,
           credentials: true,
