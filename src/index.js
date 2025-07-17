@@ -55,11 +55,13 @@ async function initialize() {
       expiresIn: process.env.TOKEN_EXPIRY
     }
   })
-  fastify.register((await import('@fastify/multipart')).default,{
-    limits:{
-      files:1
-    }
-  })
+  const multipart = (await import('@fastify/multipart')).default;
+
+  await fastify.register(multipart, {
+    limits: {
+      files: 1,
+    },
+  });
   
   
   // Register custom plugins
