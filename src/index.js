@@ -54,7 +54,7 @@ async function initialize() {
       expiresIn: process.env.TOKEN_EXPIRY
     }
   })
-  await fastify.register('@fastify/multipart')
+  
   // Register custom plugins
   fastify.register((await import('./plugins/mongodb.js')).default)
   fastify.register(await import('./plugins/asyncHandler.js'))
