@@ -1,6 +1,5 @@
 import dotenv from 'dotenv'
 import Fastify from 'fastify';
-import fastifyMultipart from '@fastify/multipart'
 import multer from 'fastify-multer'
 
 
@@ -58,7 +57,6 @@ async function initialize() {
     }
   })
 
-  await fastify.register(fastifyMultipart)
   await fastify.register(multer.contentParser)
   
   // Register custom plugins
