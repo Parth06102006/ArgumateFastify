@@ -11,8 +11,6 @@ import {
 
 async function speechRoutes(fastify, opts) {
 
-    
-   fastify.addHook('preHandler',fastify.authHandler)
   // Register multer
   fastify.post('/create/speech/:id', {
     preHandler: [fastify.authHandler],
