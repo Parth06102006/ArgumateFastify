@@ -6,7 +6,6 @@ import fs from 'fs-extra'
 import {fastify} from '../index.js'
 import path from 'path'
 import { pipeline } from "stream/promises";
-import util from 'util'
 
 const createSpeech = async (request,reply)=>
 {
@@ -411,6 +410,7 @@ const voiceToText = async (request,reply) => {
     if (filePath && fs.existsSync(filePath)) {
       try { fs.unlinkSync(filePath); } catch {}
     }
+    console.error(err.message)
     request.log.error("Transcription error:", err);
     return reply.code(500).send({ error: "Failed to transcribe audio." });
   }
