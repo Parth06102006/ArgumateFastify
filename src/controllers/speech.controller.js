@@ -348,6 +348,7 @@ const createPoiAns = async (request,reply)=>
 }
 
 const voiceToText = async (request,reply) => {
+  let filePath;
   try {
     const part = await request.file('audio')
     if (!part) {
@@ -356,7 +357,7 @@ const voiceToText = async (request,reply) => {
     const filename = `${Date.now()}-${part.filename}`;
     const uploadDir = path.join(process.cwd(), "uploads", "audioLogs");
     fs.mkdirSync(uploadDir, { recursive: true });
-    const filePath = path.join(uploadDir, filename);
+    filePath = path.join(uploadDir, filename);
     await pipeline(part.file, fs.createWriteStream(filePath));
 
     const apiKey = process.env.SPEECH_TO_TEXT_API_KEY;
