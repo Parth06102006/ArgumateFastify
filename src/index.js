@@ -83,7 +83,7 @@ const start = async ()=>{
         .then(()=>{
             console.log('shiru')
             fastify.ready()})
-        .then(()=>fastify.listen({port:process.env.PORT}).then(
+        .then(()=>fastify.listen({port:process.env.PORT,host:'0.0.0.0'}).then(
             fastify.log.info(
                 `Server is running on the port: http://localhost:${process.env.PORT}`
             )
