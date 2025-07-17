@@ -8,14 +8,10 @@ import {
   topicClassifcation,
   getSpeeches,
 } from '../controllers/speech.controller.js';
-
-import multer from 'fastify-multer';
 import { upload } from '../utils/multer.js';
 
 async function speechRoutes(fastify, opts) {
   // Register multer
-  fastify.register(multer.contentParser);
-
   fastify.post('/create/speech/:id', {
     preHandler: [fastify.authHandler],
     handler: fastify.asyncHandler(createSpeech),
