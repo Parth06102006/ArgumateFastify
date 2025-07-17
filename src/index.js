@@ -1,6 +1,5 @@
 import dotenv from 'dotenv'
 import Fastify from 'fastify';
-import fastifyMultipart from '@fastify/multipart'
 
 
 dotenv.config({
@@ -38,7 +37,7 @@ async function initialize() {
 }); */
 
   fastify.register(import('@fastify/cors'), {
-    origin: 'http://127.0.0.1:5501', // or use a function if multiple origins
+    origin: process.env.FRONTEND_URL, // or use a function if multiple origins
     credentials: true
   });
   // Register other core plugins
@@ -56,7 +55,7 @@ async function initialize() {
       expiresIn: process.env.TOKEN_EXPIRY
     }
   })
-  fastify.register(fas)
+  fastify.register(import('@fastify/multipart'))
   
   
   // Register custom plugins
