@@ -35,7 +35,7 @@ async function initialize() {
   }
 }); */
 
-  fastify.register(require('@fastify/cors'), {
+  fastify.register(import('@fastify/cors'), {
     origin: 'http://127.0.0.1:5501', // or use a function if multiple origins
     credentials: true
   });
