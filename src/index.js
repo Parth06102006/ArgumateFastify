@@ -17,8 +17,7 @@ fastify.register((await import('@fastify/cors')).default, {
     }
 
     try {
-      const hostname = new URL(origin).hostname;
-      if (hostname === process.env.FRONTEND_URL) {
+      if (origin === process.env.FRONTEND_URL) {
         cb(null, {
           origin: true,
           credentials: true,
