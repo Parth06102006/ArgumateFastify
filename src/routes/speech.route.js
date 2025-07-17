@@ -15,18 +15,22 @@ async function speechRoutes(fastify, opts) {
    fastify.addHook('preHandler',fastify.authHandler)
   // Register multer
   fastify.post('/create/speech/:id', {
+    preHandler: [fastify.authHandler],
     handler: fastify.asyncHandler(createSpeech),
   });
 
   fastify.post('/create/poiQues/:id', {
+    preHandler: [fastify.authHandler],
     handler: fastify.asyncHandler(createPoiQues),
   });
 
   fastify.post('/create/poiAns/:id', {
+    preHandler: [fastify.authHandler],
     handler: fastify.asyncHandler(createPoiAns),
   });
 
   fastify.get('/speeches/:id', {
+    preHandler: [fastify.authHandler],
     handler: fastify.asyncHandler(getSpeeches),
   });
 
@@ -35,10 +39,12 @@ async function speechRoutes(fastify, opts) {
   });
 
   fastify.post('/create/sentimentalAnalysis', {
+    preHandler: [fastify.authHandler],
     handler: fastify.asyncHandler(sentimentalAnalysis),
   });
 
   fastify.post('/create/topicClassify/:id', {
+    preHandler: [fastify.authHandler],
     handler: fastify.asyncHandler(topicClassifcation),
   });
 }
