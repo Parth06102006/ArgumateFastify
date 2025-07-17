@@ -9,7 +9,7 @@ const fastify = Fastify({logger:true})
 
 async function initialize() {
   // Register CORS with dynamic import
-fastify.register((await import('@fastify/cors')).default, {
+/* fastify.register((await import('@fastify/cors')).default, {
   origin: (origin, cb) => {
     if (!origin) {
       // Allow requests with no origin (e.g., curl, Postman, mobile apps)
@@ -33,9 +33,12 @@ fastify.register((await import('@fastify/cors')).default, {
       cb(new Error('Invalid origin'), false);
     }
   }
-});
+}); */
 
-
+  fastify.register(require('@fastify/cors'), {
+    origin: 'http://127.0.0.1:5501', // or use a function if multiple origins
+    credentials: true
+  });
   // Register other core plugins
   fastify.register((await import('@fastify/sensible')).default)
   fastify.register((await import('@fastify/cookie')).default, {
