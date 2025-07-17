@@ -1,5 +1,8 @@
 import dotenv from 'dotenv'
 import Fastify from 'fastify';
+import fastifyMultipart from '@fastify/multipart'
+import multer from 'fastify-multer'
+
 
 dotenv.config({
     path:'./.env'
@@ -54,6 +57,9 @@ async function initialize() {
       expiresIn: process.env.TOKEN_EXPIRY
     }
   })
+
+  await fastify.register(fastifyMultipart)
+  await fastify.register(multer.contentParser)
   
   // Register custom plugins
   fastify.register((await import('./plugins/mongodb.js')).default)
