@@ -72,6 +72,11 @@ fastify.register((await import('@fastify/cors')).default, {
   
 }
 
+fastify.get('/', async (request, reply) => {
+  return { status: 'OK', message: 'Server running successfully' };
+});
+
+
 const start = async ()=>{
     try {
         await initialize()
