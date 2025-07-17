@@ -1,4 +1,4 @@
-import multer from "multer"
+import multer from "fastify-multer"
 import fs from 'fs'
 import path from 'path'
 
