@@ -8,7 +8,6 @@ import {
   topicClassifcation,
   getSpeeches,
 } from '../controllers/speech.controller.js';
-import { upload } from '../utils/multer.js';
 
 async function speechRoutes(fastify, opts) {
   // Register multer
@@ -33,7 +32,7 @@ async function speechRoutes(fastify, opts) {
   });
 
   fastify.post('/create/voice', {
-    preHandler: [fastify.authHandler,upload.single('audio')],
+    preHandler: [fastify.authHandler],
     handler: fastify.asyncHandler(voiceToText),
   });
 

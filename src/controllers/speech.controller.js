@@ -4,6 +4,9 @@ import {Speech} from "../models/speech.model.js"
 import axios from "axios";
 import fs from 'fs-extra'
 import {fastify} from '../index.js'
+import path from 'path'
+import { pipeline } from "stream/promises";
+import util from 'util'
 
 const createSpeech = async (request,reply)=>
 {
@@ -346,7 +349,16 @@ const createPoiAns = async (request,reply)=>
 
 const voiceToText = async (request,reply) => {
   try {
-    const filePath = request.file.path;
+    const part = await request.file('audio')
+    if (!part) {
+      return reply.code(400).send({ error: "No audio file found" });
+    }
+    const filename = `${Date.now()}-${part.filename}`;
+    const uploadDir = path.join(process.cwd(), "uploads", "audioLogs");
+    fs.mkdirSync(uploadDir, { recursive: true });
+    const filePath = path.join(uploadDir, filename);
+    await pipeline(part.file, fs.createWriteStream(filePath));
+
     const apiKey = process.env.SPEECH_TO_TEXT_API_KEY;
     // 1. Upload the audio to AssemblyAI
     const uploadResponse = await axios({
@@ -395,7 +407,10 @@ const voiceToText = async (request,reply) => {
       }
     }
   } catch (err) {
-    fastify.log.error("Transcription error:", err);
+    if (filePath && fs.existsSync(filePath)) {
+      try { fs.unlinkSync(filePath); } catch {}
+    }
+    request.log.error("Transcription error:", err);
     return reply.code(500).send({ error: "Failed to transcribe audio." });
   }
 };
