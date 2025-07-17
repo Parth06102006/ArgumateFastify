@@ -8,7 +8,7 @@ import {
   topicClassifcation,
   getSpeeches,
 } from '../controllers/speech.controller.js';
-import { upload } from '../utils/uploadHandler.js';
+import { upload } from '../utils/multer.js';
 
 async function speechRoutes(fastify, opts) {
   // Register multer
