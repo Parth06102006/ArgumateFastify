@@ -55,7 +55,7 @@ async function initialize() {
       expiresIn: process.env.TOKEN_EXPIRY
     }
   })
-  fastify.register(import('@fastify/multipart'))
+  fastify.register((await import('@fastify/multipart')).default)
   
   
   // Register custom plugins
@@ -86,15 +86,11 @@ fastify.get('/', async (request, reply) => {
 
 const start = async ()=>{
     try {
-        await initialize()
-        .then(()=>{
-            console.log('shiru')
-            fastify.ready()})
-        .then(()=>fastify.listen({port:process.env.PORT,host:'0.0.0.0'}).then(
-            fastify.log.info(
-                `Server is running on the port: http://localhost:${process.env.PORT}`
-            )
-        ))
+      await initialize();
+      console.log('About to Start');
+      await fastify.ready();
+      await fastify.listen({ port: process.env.PORT, host: '0.0.0.0' });
+      fastify.log.info(`Server is running on the port: http://localhost:${process.env.PORT}`);
     } catch (error) {
         fastify.log.error(error)
         process.exit(1)
