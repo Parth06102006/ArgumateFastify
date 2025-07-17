@@ -350,6 +350,7 @@ const voiceToText = async (request,reply) => {
   let filePath;
   try {
     const part = await request.file('audio')
+    console.log('Type of the file',part.mimetype)
     if (!part) {
       return reply.code(400).send({ error: "No audio file found" });
     }

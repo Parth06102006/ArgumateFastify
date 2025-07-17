@@ -55,12 +55,16 @@ async function initialize() {
       expiresIn: process.env.TOKEN_EXPIRY
     }
   })
-  const multipart = (await import('@fastify/multipart')).default;
-
-  await fastify.register(multipart, {
+  fastify.register(import('@fastify/multipart'), {
     limits: {
-      files: 1,
-    },
+      fieldNameSize: 100,
+      fieldSize: 100,     
+      fields: 10,         
+      fileSize: 1000000, 
+      files: 1,  
+      headerPairs: 2000, 
+      parts: 1000         
+    }
   });
   
   
