@@ -36,7 +36,7 @@ async function initialize() {
   }
 }); */
 
-  fastify.register(import('@fastify/cors'), {
+  fastify.register((await import('@fastify/cors')).default, {
     origin: process.env.FRONTEND_URL, // or use a function if multiple origins
     credentials: true
   });
@@ -55,7 +55,7 @@ async function initialize() {
       expiresIn: process.env.TOKEN_EXPIRY
     }
   })
-  fastify.register(import('@fastify/multipart'), {
+  fastify.register((await import('@fastify/multipart')).default, {
     limits: {
       fieldNameSize: 100,
       fieldSize: 100,     
