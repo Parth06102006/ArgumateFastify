@@ -1,7 +1,6 @@
 import fp from 'fastify-plugin'
 
 const asyncHandlerPlugin = async (fastify,opts)=>{
-    console.log('file is being uploaded')
     fastify.decorate('asyncHandler',(handler)=>{
         return async function (request,reply)
         {

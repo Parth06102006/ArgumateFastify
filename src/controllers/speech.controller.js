@@ -349,7 +349,7 @@ const createPoiAns = async (request,reply)=>
 const voiceToText = async (request,reply) => {
   let filePath;
   try {
-    const part = await request.file('audio')
+    const part = await request.file();
     console.log('Type of the file',part.mimetype)
     if (!part) {
       return reply.code(400).send({ error: "No audio file found" });
