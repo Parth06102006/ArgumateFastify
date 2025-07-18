@@ -22,6 +22,10 @@ const scoreCalculate = async(request,reply)=>
         const userSpeeches = speech?.speeches?.filter(t=>t.by === 'user');
         const poiQuestions = speech?.pois?.filter(t=>t.from.by === 'user')
         const poiAnswers = speech?.pois?.filter(t=>t.to.by === 'user' && t.answered)
+        
+        // Combine all user speeches into a single content string
+        const combinedSpeechContent = userSpeeches?.map(speech => speech.text || speech.content || '').join('\n\n') || 'No speech content available';
+        
         const format = existingDebate.format;
         const userRole = existingDebate.roles.find(t=>t.by==='user')
         const role = userRole.role;
