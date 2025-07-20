@@ -72,7 +72,7 @@ const login = async(request,reply)=>{
     }
     return reply.code(200)
     .setCookie('token',token,options)
-    .send(new ApiResponse(200,'User Logged in Successfully'))
+    .send(new ApiResponse(200,'User Logged in Successfully',{name:existingUser.username}))
 }
 
 const logout = async(request,reply)=>{
